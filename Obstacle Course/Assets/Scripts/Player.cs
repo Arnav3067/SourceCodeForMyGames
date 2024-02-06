@@ -15,6 +15,17 @@ public class Player : MonoBehaviour
         Vector2 inputVector = playerInput.GetInputVectorNormalized();       
 
         Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
-        transform.position += moveDir * moveSpeed * Time.deltaTime;
+
+        float playerSize = 1.5f;
+        bool canMove = !Physics.BoxCast(transform.position,
+                            transform.localScale * 0.5f,
+                            moveDir,
+                            Quaternion.identity,
+                            playerSize);
+
+        if (canMove) 
+        {
+            transform.position += moveDir * moveSpeed * Time.deltaTime;   
+        }
     }
 }
