@@ -18,29 +18,57 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // serialized
+    [SerializeField] private AudioClip explosionSFX;
+    [SerializeField] private AudioClip winSFX;
+    [SerializeField] private AudioClip boostSFX;
+
     private void Awake() {
         instance = this;
     }
 
     private void Start() {
+        // event subscriptions
         Player.Instance.transform.TryGetComponent(out playerAudioSource);
-        GameInputs.Instance.OnBoostStart += GameInputs_OnBoostStart;
-        GameInputs.Instance.OnBoostFinish += GameInputs_OnBoostFinish;
+        Player.Instance.OnBoostStart += GameInputs_OnBoostStart;
+        Player.Instance.OnBoostFinish += GameInputs_OnBoostFinish;
+        PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
+        PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
     }
+
 
     #region onEventFire function declarations
 
+    private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
+        PlaySFX(winSFX);
+        PlayerCollisions.Instance.OnPlayerVictory -= PlayerCollisions_OnPlayerVictory;
+    }
+
+    private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {
+        PlaySFX(explosionSFX);
+        PlayerCollisions.Instance.OnPlayerCrash -= PlayerCollisions_OnPlayerDeath;
+    }
+
     private void GameInputs_OnBoostFinish(object sender, EventArgs e){
-        if (playerAudioSource != null) {
-            playerAudioSource.Stop();
-        }
+        StopSFX();
     }
 
     private void GameInputs_OnBoostStart(object sender, EventArgs e){
+        PlaySFX(boostSFX);
+    }
+
+    #endregion
+
+    private void PlaySFX(AudioClip clip) {
         if (playerAudioSource != null) {
+            playerAudioSource.clip = clip;
             playerAudioSource.Play();
         }
     }
 
-    #endregion
+    private void StopSFX() {
+        if (playerAudioSource != null) playerAudioSource.Stop();
+    }
+
+
 }

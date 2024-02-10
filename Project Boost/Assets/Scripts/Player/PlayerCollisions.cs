@@ -18,7 +18,7 @@ public class PlayerCollisions : MonoBehaviour
     
     #region event declarations
 
-    public event EventHandler OnPlayerDeath;
+    public event EventHandler OnPlayerCrash;
     public event EventHandler OnPlayerVictory;
 
     #endregion
@@ -36,10 +36,10 @@ public class PlayerCollisions : MonoBehaviour
         if (other.transform.TryGetComponent(out LevelPlate plate)) {
             if (plate.PlateID == ((int)PlateReference.EndPlate)) {
                 // the player won
-                OnPlayerVictory?.Invoke(this, EventArgs.Empty);
+                if (GameManager.Instance.IsAlive) OnPlayerVictory?.Invoke(this, EventArgs.Empty);
             }
         } else {
-            if (!GameManager.Instance.HasWon) OnPlayerDeath?.Invoke(this, EventArgs.Empty);
+            if (!GameManager.Instance.HasWon) OnPlayerCrash?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // singleton definition bellow
     private static GameManager instance;
     public static GameManager Instance {
         get {
@@ -17,42 +17,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool HasWon = false;
+    public bool HasWon {get; private set;} = false;
+    public bool IsAlive {get; private set;} = true;
 
-    private void Awake() {
+    private float LoadingSceneDelay = 6;
+
+    private void Awake() { 
         instance = this;
     }
 
     private void Start() {
-        PlayerCollisions.Instance.OnPlayerDeath += PlayerCollisions_OnPlayerDeath;
+        PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
     }
 
 
     #region OnEventFire function declarations
 
-    private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e){
-        Player.Instance.transform.GetComponent<Player>().enabled = false;
-        
-        StartCoroutine(PlayerDeathRoutine());
+    private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {  
+        IsAlive = false;      
+        StartCoroutine(PlayerStateRoutine(hasWon: false));
     }
 
-    private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e){
+    private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
         HasWon = true;
-        Loader.LoadNextLevel();
+        StartCoroutine(PlayerStateRoutine(hasWon: true));
     }
 
     #endregion
 
     // used for the coroutine when the PlayerCollisions_OnPlayerDeath function is fired
-    private IEnumerator PlayerDeathRoutine() {
-        
-        yield return new WaitForSeconds(5);
-        Loader.RestartCurrentScene();
+    private IEnumerator PlayerStateRoutine(bool hasWon = false) {
+
+        yield return new WaitForSeconds(LoadingSceneDelay);
+        if (hasWon) LoadNextLevel(); else RestartCurrentScene();
+    }
+    
+
+    private void LoadNextLevel() {
+        Loader.LoadNextLevel();
     }
 
-    public void LoadNextLevel() {
-        Loader.LoadNextLevel();
+    private void RestartCurrentScene() {
+        Loader.RestartCurrentScene();
     }
 }
 

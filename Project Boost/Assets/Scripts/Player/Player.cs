@@ -1,4 +1,7 @@
+using System;
+using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -21,9 +24,29 @@ public class Player : MonoBehaviour
 
     private Rigidbody body;
 
+    #region event declarations
+
+    public event EventHandler OnBoostStart;
+    public event EventHandler OnBoostFinish;
+
+    #endregion
+
     private void Awake() {
         instance = this;
         body = GetComponent<Rigidbody>();
+    }
+
+    private void Start() {
+        GameInputs.Instance.inputActions.Player.Boost.canceled += OnPlayerBoostCancel;
+        GameInputs.Instance.inputActions.Player.Boost.started += OnPlayerBoostStarted;
+    }
+
+    private void OnPlayerBoostStarted(InputAction.CallbackContext context) {
+        OnBoostStart?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void OnPlayerBoostCancel(InputAction.CallbackContext context) {
+        OnBoostFinish?.Invoke(this, EventArgs.Empty);
     }
 
 
@@ -32,8 +55,9 @@ public class Player : MonoBehaviour
     }
 
     private void HandleMovement() {
+
         // rotation
-        float rotationDir = GameInputs.Instance.GetInputDirection();
+        float rotationDir = GameInputs.Instance.GetRotationInputs();
         if (rotationDir != 0) {
             transform.Rotate(0f, 0f, rotationDir * rotationSpeed * Time.deltaTime);
         }

@@ -17,45 +17,47 @@ public class GameInputs : MonoBehaviour
         }
     }
     
-    private PlayerInputActons inputActions;
+    public PlayerInputActons inputActions {get; private set;}
 
     #region event declarations
-
-    public event EventHandler OnBoostStart;
-    public event EventHandler OnBoostFinish;
 
     #endregion
 
     private void Awake() {
         instance = this;
         inputActions = new PlayerInputActons();
-        inputActions.Player.Enable();
+        EnableInputs();
     }
 
     private void Start() {
-        inputActions.Player.Boost.canceled += OnPlayerBoostCancel;
-        inputActions.Player.Boost.started += OnPlayerBoostStarted;
+
+        PlayerCollisions.Instance.OnPlayerCrash += DisablePlayerInputs;
+        PlayerCollisions.Instance.OnPlayerVictory += DisablePlayerInputs;
     }
+
 
     #region onEventCall function declarations
 
-    private void OnPlayerBoostStarted(InputAction.CallbackContext context) {
-        OnBoostStart?.Invoke(this, EventArgs.Empty);
+    private void DisablePlayerInputs(object sender, EventArgs e) {
+        DisableInputs();
     }
-
-    private void OnPlayerBoostCancel(InputAction.CallbackContext context) {
-        OnBoostFinish?.Invoke(this, EventArgs.Empty);
-    }
-
     #endregion
 
     // returns input for normal rotation (returns 1, 0 or -1)
-    public float GetInputDirection(){
+    public float GetRotationInputs(){
         return inputActions.Player.Rotate.ReadValue<float>();
     }
 
     // returns input for propelling the player (returns 1 or 0)
     public float GetBoostInputs() {
         return inputActions.Player.Boost.ReadValue<float>();
+    }
+
+    public void DisableInputs() {
+        inputActions.Player.Disable();
+    }
+
+    public void EnableInputs() {
+        inputActions.Player.Enable();
     }
 }
