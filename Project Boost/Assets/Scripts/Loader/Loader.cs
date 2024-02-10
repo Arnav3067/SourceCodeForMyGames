@@ -16,4 +16,5 @@ public static class Loader
             SceneManager.LoadScene(currentSceneId + 1);
         }
     }
+    
 }

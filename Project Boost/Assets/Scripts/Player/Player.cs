@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +33,7 @@ public class Player : MonoBehaviour
     private void Awake() {
         instance = this;
         body = GetComponent<Rigidbody>();
+
     }
 
     private void Start() {

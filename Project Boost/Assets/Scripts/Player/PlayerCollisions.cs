@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerCollisions : MonoBehaviour
 {
+    public bool areCollisionsActive {get; private set;} = true;
+
     // singleton definition bellow
     private static PlayerCollisions instance;
     public static PlayerCollisions Instance {
@@ -30,16 +32,27 @@ public class PlayerCollisions : MonoBehaviour
     private enum PlateReference {
         StartPlate,
         EndPlate,
+        Obstacles
+    }
+
+    public void DisableCollisions () {
+        areCollisionsActive = false;
+    }
+
+    public void EnableCollisions() {
+        areCollisionsActive = true;
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.transform.TryGetComponent(out LevelPlate plate)) {
+        if (other.transform.TryGetComponent(out LevelPlate plate) && areCollisionsActive) {
             if (plate.PlateID == ((int)PlateReference.EndPlate)) {
                 // the player won
                 if (GameManager.Instance.IsAlive) OnPlayerVictory?.Invoke(this, EventArgs.Empty);
+            } else if (plate.PlateID == ((int)PlateReference.Obstacles)) {
+                // the player crashed 
+                if (!GameManager.Instance.HasWon) OnPlayerCrash?.Invoke(this, EventArgs.Empty);
             }
-        } else {
-            if (!GameManager.Instance.HasWon) OnPlayerCrash?.Invoke(this, EventArgs.Empty);
         }
     }
+
 }

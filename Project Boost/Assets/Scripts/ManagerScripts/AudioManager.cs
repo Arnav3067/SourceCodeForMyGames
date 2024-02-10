@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource playerAudioSource;
-
     // singleton definition bellow
     private static AudioManager instance;
     public static AudioManager Instance {
@@ -22,14 +20,16 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip explosionSFX;
     [SerializeField] private AudioClip winSFX;
     [SerializeField] private AudioClip boostSFX;
+    
+    private AudioSource audioSource;
 
     private void Awake() {
         instance = this;
+        transform.GetChild(0).transform.TryGetComponent(out audioSource);
     }
 
     private void Start() {
         // event subscriptions
-        Player.Instance.transform.TryGetComponent(out playerAudioSource);
         Player.Instance.OnBoostStart += GameInputs_OnBoostStart;
         Player.Instance.OnBoostFinish += GameInputs_OnBoostFinish;
         PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {
-        PlaySFX(explosionSFX);
+        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position);
         PlayerCollisions.Instance.OnPlayerCrash -= PlayerCollisions_OnPlayerDeath;
     }
 
@@ -60,14 +60,14 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     private void PlaySFX(AudioClip clip) {
-        if (playerAudioSource != null) {
-            playerAudioSource.clip = clip;
-            playerAudioSource.Play();
+        if (audioSource != null) {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 
     private void StopSFX() {
-        if (playerAudioSource != null) playerAudioSource.Stop();
+        if (audioSource != null) audioSource.Stop();
     }
 
 
