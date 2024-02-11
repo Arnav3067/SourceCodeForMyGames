@@ -19,9 +19,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 80;
     [SerializeField] private float boostAmount = 1000;
-    [SerializeField] private float fuel = 50f;
 
     private Rigidbody body;
+    private Fuel fuel;
+    public bool HasFuel {get; private set;} = true;
 
     #region event declarations
 
@@ -33,12 +34,18 @@ public class Player : MonoBehaviour
     private void Awake() {
         instance = this;
         body = GetComponent<Rigidbody>();
+        TryGetComponent(out fuel);
 
     }
 
     private void Start() {
         GameInputs.Instance.inputActions.Player.Boost.canceled += OnPlayerBoostCancel;
         GameInputs.Instance.inputActions.Player.Boost.started += OnPlayerBoostStarted;
+        fuel.OnFuelFinished += Fuel_OnFuelFinished;
+    }
+
+    private void Fuel_OnFuelFinished(object sender, EventArgs e) {
+        HasFuel = false;
     }
 
     private void OnPlayerBoostStarted(InputAction.CallbackContext context) {
@@ -64,14 +71,11 @@ public class Player : MonoBehaviour
 
         // boost
         float propeller = GameInputs.Instance.GetBoostInputs();
-        if (propeller == 1) {
+        if (propeller == 1 && HasFuel) {
             body.AddForce(transform.up * propeller * boostAmount * Time.deltaTime, ForceMode.Acceleration);
-            BurnFuel();
-        } else {
+            fuel.BurnFuel();
         }
     }
 
-    private void BurnFuel() {
-        fuel -= Time.deltaTime;
-    }
+
 }

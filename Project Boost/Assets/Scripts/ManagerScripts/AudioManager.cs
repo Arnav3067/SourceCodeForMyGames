@@ -17,15 +17,13 @@ public class AudioManager : MonoBehaviour
     }
 
     // serialized
-    [SerializeField] private AudioClip explosionSFX;
-    [SerializeField] private AudioClip winSFX;
-    [SerializeField] private AudioClip boostSFX;
+    [SerializeField] private AudioSource explosionSFX;
+    [SerializeField] private AudioSource winSFX;
+    [SerializeField] private AudioSource boostSFX;
+    [SerializeField] private AudioSource outOfFuelSFX;
     
-    private AudioSource audioSource;
-
     private void Awake() {
         instance = this;
-        transform.GetChild(0).transform.TryGetComponent(out audioSource);
     }
 
     private void Start() {
@@ -34,10 +32,16 @@ public class AudioManager : MonoBehaviour
         Player.Instance.OnBoostFinish += GameInputs_OnBoostFinish;
         PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
+        Fuel.fuel.OnFuelFinished += Fuel_OnFuelFinished;
     }
 
-
     #region onEventFire function declarations
+
+    private void Fuel_OnFuelFinished(object sender, EventArgs e) {
+        StopSFX(boostSFX);
+        PlaySFX(outOfFuelSFX);
+        Fuel.fuel.OnFuelFinished -= Fuel_OnFuelFinished;
+    }
 
     private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
         PlaySFX(winSFX);
@@ -45,30 +49,39 @@ public class AudioManager : MonoBehaviour
     }
 
     private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {
-        AudioSource.PlayClipAtPoint(explosionSFX, Camera.main.transform.position);
+        PlaySFX(explosionSFX);
+        if (!Player.Instance.HasFuel) {
+            StopSFX(outOfFuelSFX);
+        }
         PlayerCollisions.Instance.OnPlayerCrash -= PlayerCollisions_OnPlayerDeath;
     }
 
     private void GameInputs_OnBoostFinish(object sender, EventArgs e){
-        StopSFX();
+        StopSFX(boostSFX);
     }
 
     private void GameInputs_OnBoostStart(object sender, EventArgs e){
-        PlaySFX(boostSFX);
+        if (Player.Instance.HasFuel) {
+            PlaySFX(boostSFX);
+        }
     }
 
     #endregion
 
-    private void PlaySFX(AudioClip clip) {
-        if (audioSource != null) {
-            audioSource.clip = clip;
-            audioSource.Play();
+    private void PlaySFX(AudioSource source) {
+        if (source != null) {
+            source.Play();
+        }   
+    }
+
+    private void StopSFX(AudioSource source) {
+        if (source != null) {
+            source.Stop();
         }
     }
 
-    private void StopSFX() {
-        if (audioSource != null) audioSource.Stop();
-    }
 
+
+    
 
 }

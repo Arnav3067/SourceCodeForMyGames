@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerCrashVisuals : MonoBehaviour
+public class PlayerVisualEvents : MonoBehaviour
 {
     [SerializeField] private GameObject rBparts;
     [SerializeField] private GameObject normalParts;
@@ -17,14 +17,20 @@ public class PlayerCrashVisuals : MonoBehaviour
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
         Player.Instance.OnBoostFinish += Player_OnBoostFinish;
         Player.Instance.OnBoostStart += Player_OnBoostStart;
+        Fuel.fuel.OnFuelFinished += Fuel_OnFuelFinished;
+    }
+
+    private void Fuel_OnFuelFinished(object sender, EventArgs e) {
+        DisableThrusters();
+        Fuel.fuel.OnFuelFinished -= Fuel_OnFuelFinished;
     }
 
     private void Player_OnBoostStart(object sender, EventArgs e) {
-        if (thruster_VFX != null) thruster_VFX.SetActive(true);
+        if (Player.Instance.HasFuel) EnableThrusters();
     }
 
     private void Player_OnBoostFinish(object sender, EventArgs e) {
-        if (thruster_VFX != null) thruster_VFX.SetActive(false);
+        DisableThrusters();
     }
 
     private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
@@ -42,5 +48,13 @@ public class PlayerCrashVisuals : MonoBehaviour
         Destroy(currentExplosion, timer);
         rBparts.SetActive(true);
         normalParts.SetActive(false);
+    }
+
+    private void DisableThrusters() {
+        if (thruster_VFX != null) thruster_VFX.SetActive(false);
+    }
+
+    private void EnableThrusters() {
+        if (thruster_VFX != null) thruster_VFX.SetActive(true);
     }
 }
