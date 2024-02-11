@@ -526,7 +526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 1
-  rate: 0.2
+  fillRate: 0.0987
+  reductionRate: 0.12
 --- !u!1 &7197995113383023422
 GameObject:
   m_ObjectHideFlags: 0

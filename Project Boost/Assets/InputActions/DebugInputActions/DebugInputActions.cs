@@ -44,6 +44,15 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FuelToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""29c7e9c1-c9f8-423d-8bc5-cff0ae287885"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""CollisionToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a0d6cf2-1d6b-4efe-991d-c2bf0808cf8d"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FuelToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
         m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
         m_Debug_LoadNextLevel = m_Debug.FindAction("LoadNextLevel", throwIfNotFound: true);
         m_Debug_CollisionToggle = m_Debug.FindAction("CollisionToggle", throwIfNotFound: true);
+        m_Debug_FuelToggle = m_Debug.FindAction("FuelToggle", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
     private List<IDebugActions> m_DebugActionsCallbackInterfaces = new List<IDebugActions>();
     private readonly InputAction m_Debug_LoadNextLevel;
     private readonly InputAction m_Debug_CollisionToggle;
+    private readonly InputAction m_Debug_FuelToggle;
     public struct DebugActions
     {
         private @DebugInputActions m_Wrapper;
         public DebugActions(@DebugInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @LoadNextLevel => m_Wrapper.m_Debug_LoadNextLevel;
         public InputAction @CollisionToggle => m_Wrapper.m_Debug_CollisionToggle;
+        public InputAction @FuelToggle => m_Wrapper.m_Debug_FuelToggle;
         public InputActionMap Get() { return m_Wrapper.m_Debug; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
             @CollisionToggle.started += instance.OnCollisionToggle;
             @CollisionToggle.performed += instance.OnCollisionToggle;
             @CollisionToggle.canceled += instance.OnCollisionToggle;
+            @FuelToggle.started += instance.OnFuelToggle;
+            @FuelToggle.performed += instance.OnFuelToggle;
+            @FuelToggle.canceled += instance.OnFuelToggle;
         }
 
         private void UnregisterCallbacks(IDebugActions instance)
@@ -172,6 +198,9 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
             @CollisionToggle.started -= instance.OnCollisionToggle;
             @CollisionToggle.performed -= instance.OnCollisionToggle;
             @CollisionToggle.canceled -= instance.OnCollisionToggle;
+            @FuelToggle.started -= instance.OnFuelToggle;
+            @FuelToggle.performed -= instance.OnFuelToggle;
+            @FuelToggle.canceled -= instance.OnFuelToggle;
         }
 
         public void RemoveCallbacks(IDebugActions instance)
@@ -193,5 +222,6 @@ public partial class @DebugInputActions: IInputActionCollection2, IDisposable
     {
         void OnLoadNextLevel(InputAction.CallbackContext context);
         void OnCollisionToggle(InputAction.CallbackContext context);
+        void OnFuelToggle(InputAction.CallbackContext context);
     }
 }

@@ -44,13 +44,15 @@ public class PlayerCollisions : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.transform.TryGetComponent(out LevelPlate plate) && areCollisionsActive) {
-            if (plate.PlateID == ((int)PlateReference.EndPlate)) {
-                // the player won
-                if (GameManager.Instance.IsAlive) OnPlayerVictory?.Invoke(this, EventArgs.Empty);
-            } else if (plate.PlateID == ((int)PlateReference.Obstacles)) {
-                // the player crashed 
-                if (!GameManager.Instance.HasWon) OnPlayerCrash?.Invoke(this, EventArgs.Empty);
+        if (areCollisionsActive) {
+            if (other.transform.TryGetComponent(out LevelPlate plate)) {
+                if (plate.PlateID == ((int)PlateReference.EndPlate)) {
+                    // the player won
+                    if (GameManager.Instance.IsAlive) OnPlayerVictory?.Invoke(this, EventArgs.Empty);
+                } else if (plate.PlateID == ((int)PlateReference.Obstacles)) {
+                    // the player crashed 
+                    if (!GameManager.Instance.HasWon) OnPlayerCrash?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
     }

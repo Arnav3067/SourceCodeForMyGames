@@ -17,9 +17,11 @@ public class Fuel : MonoBehaviour
     }
 
     [SerializeField] private float amount = 50f;
-    [SerializeField] private float rate = 0.01f;
+    [SerializeField] private float fillRate = 0.01f;
+    [SerializeField] private float reductionRate = 0.1f;
 
     public float Amount {get; private set;}
+    public bool isFuelActive {get; private set;} = true;
 
     private void Awake() {
         instance = this;
@@ -38,8 +40,27 @@ public class Fuel : MonoBehaviour
     }
     
     public void BurnFuel() {
-        amount -= rate * Time.deltaTime;
-        Amount -= rate * Time.deltaTime;
+        if (isFuelActive) {
+            amount -= reductionRate * Time.deltaTime;
+            Amount -= reductionRate * Time.deltaTime;
+        }
     }
+
+    public void EnableFuel() {
+        isFuelActive = true;
+    }
+
+    public void DisableFuel() {
+        isFuelActive = false;
+    }
+
+    public void RefillAtRate() {
+        if (amount <= 1 && Amount <= 1) {
+            amount += fillRate* Time.deltaTime;
+            Amount += fillRate * Time.deltaTime;
+        }
+    }
+
+
 
 }

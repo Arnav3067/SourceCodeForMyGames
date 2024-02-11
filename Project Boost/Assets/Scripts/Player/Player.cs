@@ -74,6 +74,8 @@ public class Player : MonoBehaviour
         if (propeller == 1 && HasFuel) {
             body.AddForce(transform.up * propeller * boostAmount * Time.deltaTime, ForceMode.Acceleration);
             fuel.BurnFuel();
+        } else {
+            fuel.RefillAtRate();
         }
     }
 

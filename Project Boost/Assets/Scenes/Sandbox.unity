@@ -633,6 +633,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 128506470378524486, guid: 0dd59b165bd7e1c468e186af609ed71e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7216311366715781487, guid: 0dd59b165bd7e1c468e186af609ed71e, type: 3}
       propertyPath: m_Name
       value: MovableObstacle_prototype
@@ -1069,6 +1073,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 963194228}
+  - {fileID: 3099485973451536442}
   - {fileID: 705507995}
   - {fileID: 7909405285400927119}
   - {fileID: 5951173644719063646}
@@ -1077,7 +1082,6 @@ SceneRoots:
   - {fileID: 984173521738768812}
   - {fileID: 4802784681709444058}
   - {fileID: 116347285}
-  - {fileID: 3099485973451536442}
   - {fileID: 4798449329556784636}
   - {fileID: 5659341148355752854}
   - {fileID: 8432529240585018662}
