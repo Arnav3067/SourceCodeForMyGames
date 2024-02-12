@@ -46,7 +46,7 @@ public class PlayerCollisions : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if (areCollisionsActive) {
             if (other.transform.TryGetComponent(out LevelPlate plate)) {
-                if (plate.PlateID == ((int)PlateReference.EndPlate)) {
+                if (plate.PlateID == 1) {
                     // the player won
                     if (GameManager.Instance.IsAlive) OnPlayerVictory?.Invoke(this, EventArgs.Empty);
                 } else if (plate.PlateID == ((int)PlateReference.Obstacles)) {

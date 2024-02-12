@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
         fuel.OnFuelFinished += Fuel_OnFuelFinished;
     }
 
+    #region OnEventFire function declarations
+
     private void Fuel_OnFuelFinished(object sender, EventArgs e) {
         HasFuel = false;
     }
@@ -56,6 +58,7 @@ public class Player : MonoBehaviour
         OnBoostFinish?.Invoke(this, EventArgs.Empty);
     }
 
+    #endregion
 
     private void Update() {
         HandleMovement();
@@ -77,6 +80,10 @@ public class Player : MonoBehaviour
         } else {
             fuel.RefillAtRate();
         }
+    }
+
+    public void AddForce(Vector3 forceDir, float amount) {
+        body.AddForce(forceDir * amount, ForceMode.Impulse);
     }
 
 

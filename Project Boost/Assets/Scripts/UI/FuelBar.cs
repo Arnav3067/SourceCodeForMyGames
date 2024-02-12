@@ -14,16 +14,30 @@ public class FuelBar : MonoBehaviour
 
     private void Start() {
         Fuel.fuel.OnFuelFinished += Fuel_OnFuelFinished;
+        Fuel.fuel.OnFuelLow += Fuel_OnFuelLow;
+        Fuel.fuel.OnFuelHigh += Fuel_OnFuelHigh;
+    }
+
+    private void Fuel_OnFuelHigh(object sender, EventArgs e) {
+        SetFuelBarLowAnim(false);
+    }
+
+    private void Fuel_OnFuelLow(object sender, EventArgs e) {
+        SetFuelBarLowAnim(true);
     }
 
     private void Fuel_OnFuelFinished(object sender, EventArgs e)
     {
-        animator.SetTrigger("OnOutOfFuel");
+        
         Fuel.fuel.OnFuelFinished -= Fuel_OnFuelFinished;
     }
 
     private void Update() {
        fuelBar.fillAmount = Fuel.fuel.Amount;
+    }
+
+    private void SetFuelBarLowAnim(bool isTrue) {
+        animator.SetBool("IsFuelLow", isTrue);
     }
 
     

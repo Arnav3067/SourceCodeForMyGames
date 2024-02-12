@@ -466,10 +466,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.81
-  m_Height: 3.32
+  m_Radius: 0.67257816
+  m_Height: 3.1331916
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.041647594, y: -0.09340414, z: 0}
 --- !u!114 &995780827538860014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,8 +526,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amount: 1
-  fillRate: 0.0987
-  reductionRate: 0.12
+  fillRate: 0.09
+  reductionRate: 0.09
+  significantFuelValue: 0.45
 --- !u!1 &7197995113383023422
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,7 +592,7 @@ Transform:
   m_GameObject: {fileID: 9096430771450795227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.48}
+  m_LocalPosition: {x: 0, y: 0.67, z: -2.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -606,11 +607,11 @@ Light:
   m_GameObject: {fileID: 9096430771450795227}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 0
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.45
-  m_Range: 14.09
+  m_Intensity: 1.44
+  m_Range: 13.41
   m_SpotAngle: 40
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
