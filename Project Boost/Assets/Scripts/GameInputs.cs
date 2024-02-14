@@ -30,7 +30,6 @@ public class GameInputs : MonoBehaviour
     }
 
     private void Start() {
-
         PlayerCollisions.Instance.OnPlayerCrash += DisablePlayerInputs;
         PlayerCollisions.Instance.OnPlayerVictory += DisablePlayerInputs;
     }
@@ -41,6 +40,7 @@ public class GameInputs : MonoBehaviour
     private void DisablePlayerInputs(object sender, EventArgs e) {
         DisableInputs();
     }
+
     #endregion
 
     // returns input for normal rotation (returns 1, 0 or -1)

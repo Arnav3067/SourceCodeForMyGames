@@ -172,7 +172,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e2758bfca262a084bb7c5b4dc0cbe3dd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.656
+  m_Volume: 0.853
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -512,7 +512,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &5795351884454414220
+--- !u!1 &5930240609341718839
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,22 +520,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3443245767823188888}
-  - component: {fileID: 6408021878210889412}
+  - component: {fileID: 6021724454214559278}
+  - component: {fileID: 2725533132260119813}
   m_Layer: 0
-  m_Name: outOfFuel
+  m_Name: scaryBuildUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3443245767823188888
+--- !u!4 &6021724454214559278
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795351884454414220}
+  m_GameObject: {fileID: 5930240609341718839}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -544,21 +544,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7907412706548096362}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6408021878210889412
+--- !u!82 &2725533132260119813
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795351884454414220}
+  m_GameObject: {fileID: 5930240609341718839}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4fecc1201d6372142bed026b36dd9c06, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7dec8b5b65f4497459c9a80a27ae4662, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.466
+  m_Volume: 0.975
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -673,8 +673,8 @@ Transform:
   - {fileID: 9194932244696391598}
   - {fileID: 3618755190406085548}
   - {fileID: 7626898117681409955}
-  - {fileID: 3443245767823188888}
   - {fileID: 8590024698735725528}
+  - {fileID: 6021724454214559278}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5749318531853000146
@@ -692,5 +692,4 @@ MonoBehaviour:
   explosionSFX: {fileID: 2618211469809382690}
   winSFX: {fileID: 459261528829130789}
   boostSFX: {fileID: 8661633337097896691}
-  outOfFuelSFX: {fileID: 6408021878210889412}
   jumpSFX: {fileID: 3799423674957969331}

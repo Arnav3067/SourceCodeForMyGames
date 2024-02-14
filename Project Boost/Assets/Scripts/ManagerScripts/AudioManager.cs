@@ -20,7 +20,6 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource explosionSFX;
     [SerializeField] private AudioSource winSFX;
     [SerializeField] private AudioSource boostSFX;
-    [SerializeField] private AudioSource outOfFuelSFX;
     [SerializeField] private AudioSource jumpSFX;
 
     private void Awake() {
@@ -33,8 +32,6 @@ public class AudioManager : MonoBehaviour
         Player.Instance.OnBoostFinish += GameInputs_OnBoostFinish;
         PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
-        Fuel.fuel.OnFuelLow += Fuel_OnFuelLow;
-        Fuel.fuel.OnFuelHigh += Fuel_OnFuelHigh;
         JumpPlate.OnPlayerJump += JumpPlate_OnPlayerJump;
     }
 
@@ -44,15 +41,6 @@ public class AudioManager : MonoBehaviour
 
     #region onEventFire function declarations
 
-    private void Fuel_OnFuelLow(object sender, EventArgs e) {
-        if (!outOfFuelSFX.isPlaying) PlaySFX(outOfFuelSFX);
-    }
-
-    private void Fuel_OnFuelHigh(object sender, EventArgs e) {
-        if (outOfFuelSFX.isPlaying) StopSFX(outOfFuelSFX);
-    }
-
-
     private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
         PlaySFX(winSFX);
         PlayerCollisions.Instance.OnPlayerVictory -= PlayerCollisions_OnPlayerVictory;
@@ -60,9 +48,6 @@ public class AudioManager : MonoBehaviour
 
     private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {
         PlaySFX(explosionSFX);
-        if (!Player.Instance.HasFuel) {
-            StopSFX(outOfFuelSFX);
-        }
         PlayerCollisions.Instance.OnPlayerCrash -= PlayerCollisions_OnPlayerDeath;
     }
 

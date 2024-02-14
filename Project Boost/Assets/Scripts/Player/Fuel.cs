@@ -32,9 +32,15 @@ public class Fuel : MonoBehaviour
 
     private void Start() {
         Amount = amount;
+        JumpPlate.OnPlayerJump += JumpPlate_OnPLayerJump;
     }
 
-    # region event declarations
+    private void JumpPlate_OnPLayerJump(object sender, EventArgs e)
+    {
+        amount = 1; Amount =1;
+    }
+
+    #region event declarations
 
     public event EventHandler OnFuelFinished;
     public event EventHandler OnFuelLow;
@@ -70,11 +76,13 @@ public class Fuel : MonoBehaviour
     }
 
     public void RefillAtRate() {
-        if (amount <= 1 && Amount <= 1 && !noFuel) {
+        if (amount <= 1 && Amount <= 1 && !noFuel && isFuelActive) {
             amount += fillRate* Time.deltaTime;
             Amount += fillRate * Time.deltaTime;
         }
     }
+
+
 
 
 

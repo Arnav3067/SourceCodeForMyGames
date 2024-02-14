@@ -27,15 +27,15 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
+        PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerCrash;
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
     }
 
 
     #region OnEventFire function declarations
 
-    private void PlayerCollisions_OnPlayerDeath(object sender, EventArgs e) {  
-        IsAlive = false;      
+    private void PlayerCollisions_OnPlayerCrash(object sender, EventArgs e) {  
+        IsAlive = false;
         StartCoroutine(PlayerStateRoutine(hasWon: false));
     }
 
