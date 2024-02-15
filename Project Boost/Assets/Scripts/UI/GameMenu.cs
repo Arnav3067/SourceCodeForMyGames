@@ -21,6 +21,7 @@ public class GameMenu : MonoBehaviour
 
     public void Return() {
         ResumeTime();
+        DebugServices.DisableInputs();
         Loader.ReturnToPreviousScene();
     }
 

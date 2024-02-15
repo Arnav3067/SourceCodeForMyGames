@@ -1,4 +1,5 @@
 using System;
+using TetraCreations.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 80;
     [SerializeField] private float boostAmount = 1000;
+    [SerializeField] [ReadOnly] private float originalBoostAmount;
 
     private Rigidbody body;
     private Fuel fuel;
@@ -35,10 +37,10 @@ public class Player : MonoBehaviour
         instance = this;
         body = GetComponent<Rigidbody>();
         TryGetComponent(out fuel);
-
     }
 
     private void Start() {
+        originalBoostAmount = boostAmount;
         GameInputs.Instance.inputActions.Player.Boost.canceled += OnPlayerBoostCancel;
         GameInputs.Instance.inputActions.Player.Boost.started += OnPlayerBoostStarted;
         fuel.OnFuelFinished += Fuel_OnFuelFinished;
@@ -84,6 +86,14 @@ public class Player : MonoBehaviour
 
     public void AddForce(Vector3 forceDir, float amount) {
         body.AddForce(forceDir * amount, ForceMode.Impulse);
+    }
+
+    public void ChangeBoostAmount(float amount) {
+        boostAmount = amount;
+    }
+
+    public void RestBoostAmount() {
+        boostAmount = originalBoostAmount;
     }
 
 

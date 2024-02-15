@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource winSFX;
     [SerializeField] private AudioSource boostSFX;
     [SerializeField] private AudioSource jumpSFX;
+    [SerializeField] private AudioSource speedSFX;
 
     private void Awake() {
         instance = this;
@@ -33,6 +34,11 @@ public class AudioManager : MonoBehaviour
         PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerDeath;
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
         JumpPlate.OnPlayerJump += JumpPlate_OnPlayerJump;
+        SpeedPlate.OnSpeedCollect += SpeedPlate_OnSpeedCollect;
+    }
+
+    private void SpeedPlate_OnSpeedCollect(object sender, EventArgs e) {
+        PlaySFX(speedSFX);
     }
 
     private void JumpPlate_OnPlayerJump(object sender, EventArgs e) {

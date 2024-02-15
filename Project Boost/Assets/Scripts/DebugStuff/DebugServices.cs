@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DebugServices : MonoBehaviour
 {
-    private DebugInputActions inputActions;
+    public static DebugInputActions inputActions;
 
     private void Awake() {
         inputActions = new DebugInputActions();
@@ -15,12 +14,6 @@ public class DebugServices : MonoBehaviour
         inputActions.Debug.LoadNextLevel.performed += Debug_LoadNextLevel;
         inputActions.Debug.CollisionToggle.performed+= Debug_ToggleCollisions;
         inputActions.Debug.FuelToggle.performed += Debug_FuelToggle;
-        PlayerCollisions.Instance.OnPlayerCrash += DisableInputs;
-        PlayerCollisions.Instance.OnPlayerVictory += DisableInputs;
-    }
-
-    private void DisableInputs(object sender, EventArgs e) {
-        inputActions.Debug.Disable();
     }
 
     private void Debug_FuelToggle(InputAction.CallbackContext context) {
@@ -46,5 +39,9 @@ public class DebugServices : MonoBehaviour
 
     private void EnableInputs() {
         inputActions.Debug.Enable();
+    }
+
+    public static void DisableInputs() {
+        inputActions.Debug.Disable();
     }
 }
