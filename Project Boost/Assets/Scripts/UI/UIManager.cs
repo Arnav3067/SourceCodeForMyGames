@@ -1,12 +1,15 @@
 using UnityEngine;
 
+
 public class UIManager : MonoBehaviour
 {
-    private GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
+    private Animator animator;
 
     private void Awake() {
-        pauseMenu = transform.GetChild(2).gameObject;
+        animator = GetComponent<Animator>();
     }
+
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             EnablePauseMenu();
@@ -18,4 +21,7 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void PlayWhiteFadeIn() {
+        animator.SetTrigger("FadeIn");
+    }
 }

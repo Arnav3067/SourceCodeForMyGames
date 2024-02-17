@@ -27,7 +27,7 @@ public static class Loader
     }
 
     public static void EnterSandbox(int calledFromScene) {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(6);
         requestScene = calledFromScene;
     }
 

@@ -21,18 +21,23 @@ public class SpeedPlate : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.transform.TryGetComponent(out Player player) && isPlateActive) {
-            player.ChangeBoostAmount(boostAmount);
-            animator.SetTrigger("OnPlayerCollect");
-            OnSpeedCollect?.Invoke(this, EventArgs.Empty);
-            isPlateActive = false;
-            StartCoroutine(BoostAmountResetRoutine(player));
+        if (other.transform.TryGetComponent(out Player player) && isPlateActive && GameManager.Instance.IsAlive) {
+            PlayerCollectSequence(player);
         }
+    }
+
+    private void PlayerCollectSequence(Player player) {
+        player.ChangeBoostAmount(boostAmount);
+        animator.SetTrigger("OnPlayerCollect");
+        OnSpeedCollect?.Invoke(this, EventArgs.Empty);
+        isPlateActive = false;
+        StartCoroutine(BoostAmountResetRoutine(player));
     }
 
     private IEnumerator BoostAmountResetRoutine(Player player) {
         yield return new WaitForSeconds(resetTime);
         player.RestBoostAmount();
+        animator.SetTrigger("OnTimerFinish");
         isPlateActive = true;
     }
 }

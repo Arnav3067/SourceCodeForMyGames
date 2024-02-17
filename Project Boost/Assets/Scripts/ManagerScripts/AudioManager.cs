@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    private void PlaySFX(AudioSource source) {
+    public void PlaySFX(AudioSource source) {
         if (source != null) {
             source.Play();
         }   

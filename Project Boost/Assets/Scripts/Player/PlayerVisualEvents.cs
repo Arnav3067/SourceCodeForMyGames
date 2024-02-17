@@ -20,6 +20,8 @@ public class PlayerVisualEvents : MonoBehaviour
         Fuel.fuel.OnFuelFinished += Fuel_OnFuelFinished;
     }
 
+    # region OnEventFire function declarations;
+
     private void Fuel_OnFuelFinished(object sender, EventArgs e) {
         DisableThrusters();
         Fuel.fuel.OnFuelFinished -= Fuel_OnFuelFinished;
@@ -43,9 +45,12 @@ public class PlayerVisualEvents : MonoBehaviour
         PlayerCollisions.Instance.OnPlayerCrash -= PlayerCollisions_OnPlayerCrash;
     }
 
+    # endregion
+
     private void PlayerExplosionSequence() {
         GameObject currentExplosion = Instantiate(explosion_VFX, transform.position, transform.rotation);
         Destroy(currentExplosion, timer);
+        CameraShake.instance.Shake();
         rBparts.SetActive(true);
         normalParts.SetActive(false);
     }
@@ -57,4 +62,5 @@ public class PlayerVisualEvents : MonoBehaviour
     private void EnableThrusters() {
         if (thruster_VFX != null) thruster_VFX.SetActive(true);
     }
+
 }

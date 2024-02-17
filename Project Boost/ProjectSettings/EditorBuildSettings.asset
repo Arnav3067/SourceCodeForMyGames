@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ShowCaseScene.unity
+    guid: ec87ac820a2465c42aa12fb8da6a1d51
+  - enabled: 1
     path: Assets/Scenes/Prelude_The Beginig of the end.unity
     guid: 1f5d1898801639747a21ab0be6d62873
   - enabled: 1
@@ -14,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prelude_Something wicked.unity
     guid: 91ac1a855330bd446a9206988c2d0dcb
+  - enabled: 1
+    path: Assets/Scenes/Prelude_Claustrophobia.unity
+    guid: 65b2919d1994a364b8558117c3a844c7
+  - enabled: 1
+    path: Assets/Scenes/Prelude_Freedom at a cost.unity
+    guid: 65f3ae45e16a02e43b9c6f0a498b14b4
   - enabled: 1
     path: Assets/Scenes/Sandbox.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
