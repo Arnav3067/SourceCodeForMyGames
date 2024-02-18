@@ -55,5 +55,9 @@ public class GameMenu : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void Credits() {
+        Loader.LoadLevel(8); // this is the build index for the credits scene
+    }
+
 }
 
