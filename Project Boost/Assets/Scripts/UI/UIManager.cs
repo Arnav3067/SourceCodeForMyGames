@@ -17,6 +17,11 @@ public class UIManager : MonoBehaviour
     }  
 
     private void EnablePauseMenu() {
+        PauseMenuSequence();
+    }
+
+    private void PauseMenuSequence() {
+        Cursor.visible = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
     }

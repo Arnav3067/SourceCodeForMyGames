@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour
 
     private float LoadingSceneDelay = 6;
 
-    private void Awake() { 
+    private void Awake() {
         instance = this;
+        Cursor.visible = false;
     }
 
     private void Start() {

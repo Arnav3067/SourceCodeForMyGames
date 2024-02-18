@@ -484,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 80
   boostAmount: 900
+  originalBoostAmount: 0
 --- !u!114 &2580247387295567762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,8 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: 1
   fillRate: 0.09
-  reductionRate: 0.09
-  significantFuelValue: 0.45
+  reductionRate: 0.1234
+  minimumFuelThreshold: 0.3
 --- !u!1 &7197995113383023422
 GameObject:
   m_ObjectHideFlags: 0

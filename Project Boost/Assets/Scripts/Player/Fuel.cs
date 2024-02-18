@@ -20,7 +20,7 @@ public class Fuel : MonoBehaviour
     [SerializeField] private float amount = 50f;
     [SerializeField] private float fillRate = 0.01f;
     [SerializeField] private float reductionRate = 0.1f;
-    [SerializeField] private float significantFuelValue = 0.2f;
+    [SerializeField] private float minimumFuelThreshold = 0.2f;
 
     public float Amount {get; private set;}
     public bool isFuelActive {get; private set;} = true; // used for the debug keys;
@@ -53,7 +53,7 @@ public class Fuel : MonoBehaviour
             noFuel = true;
             OnFuelFinished?.Invoke(this, EventArgs.Empty);
         }
-        if (amount <= significantFuelValue) {
+        if (amount <= minimumFuelThreshold) {
             OnFuelLow?.Invoke(this, EventArgs.Empty);
         } else {
             OnFuelHigh?.Invoke(this, EventArgs.Empty);

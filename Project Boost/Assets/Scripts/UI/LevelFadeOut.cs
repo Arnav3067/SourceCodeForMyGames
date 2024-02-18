@@ -10,12 +10,18 @@ public class LevelFadeOut : MonoBehaviour
     }
 
     private void Start() {
-        PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerCrash;
-        PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerCrash;
+        if (PlayerCollisions.Instance != null) {
+            PlayerCollisions.Instance.OnPlayerCrash += PlayerCollisions_OnPlayerCrash;
+            PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerCrash;
+        }
     }
 
     private void PlayerCollisions_OnPlayerCrash(object sender, EventArgs e)
     {
+        SetAnimation();
+    }
+
+    public void SetAnimation() {
         animator.SetTrigger("OnLevelEnd");
     }
 }

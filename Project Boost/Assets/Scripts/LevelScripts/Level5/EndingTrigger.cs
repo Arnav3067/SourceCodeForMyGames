@@ -6,7 +6,6 @@ public class EndingTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent(out Player _) && GameManager.Instance.IsAlive) {
-            print("Player");
             ui.PlayWhiteFadeIn();
         }
     }

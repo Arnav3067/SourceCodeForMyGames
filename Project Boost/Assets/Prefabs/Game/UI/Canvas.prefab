@@ -410,7 +410,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2534875088577772648}
         m_TargetAssemblyTypeName: GameMenu, Assembly-CSharp
-        m_MethodName: Sandbox
+        m_MethodName: EnterSandboxFromMainLevels
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
