@@ -1,5 +1,4 @@
 using UnityEngine;
-using TetraCreations.Attributes;
 using System.Collections;
 using System;
 
@@ -7,9 +6,7 @@ public class SpeedPlate : MonoBehaviour
 {
     [SerializeField] private bool isPlateActive = false;
 
-    [DrawIf("isPlateActive", true)]
     [SerializeField] private float boostAmount = 0;
-    [DrawIf("isPlateActive", true)]
     [SerializeField] private float resetTime = 7;   
 
     private Animator animator;

@@ -35,6 +35,13 @@ public class AudioManager : MonoBehaviour
         PlayerCollisions.Instance.OnPlayerVictory += PlayerCollisions_OnPlayerVictory;
         JumpPlate.OnPlayerJump += JumpPlate_OnPlayerJump;
         SpeedPlate.OnSpeedCollect += SpeedPlate_OnSpeedCollect;
+        Fuel.fuel.OnFuelFinished += Fuel_OnFuelFinish;
+    }
+
+    #region onEventFire function declarations
+
+    private void Fuel_OnFuelFinish(object sender, EventArgs e) {
+        StopSFX(boostSFX);
     }
 
     private void SpeedPlate_OnSpeedCollect(object sender, EventArgs e) {
@@ -44,8 +51,6 @@ public class AudioManager : MonoBehaviour
     private void JumpPlate_OnPlayerJump(object sender, EventArgs e) {
         PlaySFX(jumpSFX);
     }
-
-    #region onEventFire function declarations
 
     private void PlayerCollisions_OnPlayerVictory(object sender, EventArgs e) {
         PlaySFX(winSFX);

@@ -466,10 +466,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.67257816
-  m_Height: 3.1331916
+  m_Radius: 0.71494454
+  m_Height: 2.6594756
   m_Direction: 1
-  m_Center: {x: -0.041647594, y: -0.09340414, z: 0}
+  m_Center: {x: 0.037152927, y: 0.044735514, z: 0}
 --- !u!114 &995780827538860014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,8 +528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: 1
   fillRate: 0.09
-  reductionRate: 0.1234
-  minimumFuelThreshold: 0.3
+  reductionRate: 0.096
+  minimumFuelThreshold: 0.45
 --- !u!1 &7197995113383023422
 GameObject:
   m_ObjectHideFlags: 0

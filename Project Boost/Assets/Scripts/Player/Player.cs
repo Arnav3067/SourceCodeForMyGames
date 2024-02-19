@@ -1,5 +1,4 @@
 using System;
-using TetraCreations.Attributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +19,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float rotationSpeed = 80;
     [SerializeField] private float boostAmount = 1000;
-    [SerializeField] [ReadOnly] private float originalBoostAmount;
+    [SerializeField] private float originalBoostAmount;
 
     private Rigidbody body;
     private Fuel fuel;
@@ -95,6 +94,7 @@ public class Player : MonoBehaviour
     public void RestBoostAmount() {
         boostAmount = originalBoostAmount;
     }
+
 
 
 }
